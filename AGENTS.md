@@ -133,12 +133,26 @@ src/
   - The body fills in every section of `.github/pull_request_template.md`: what and why, type, screens (D##/M##), how to test, desktop and mobile screenshots, security notes, checklist.
 - Keep PRs small and about one thing. Never use `--no-verify`, never force-push a shared branch, never merge your own PR.
 
-## 9. Before you say a task is done
+## 9. Documentation is part of the change
+
+Undocumented work isn't finished. Update the docs **in the same pull request** as the change, never "later".
+
+- **Architecture, tooling, security or configuration changed?** Update the page in `_docs/` that describes it (`_docs/architecture/overview.md` for how the app works). That covers routing, rendering, the proxy and headers, environment variables, layouts, the theme, state, dependencies, linting, testing, hooks and CI.
+- **Made a decision someone could later ask "why?" about** (a new dependency, pattern, library or convention)? Add an ADR in `_docs/adr/`. Never rewrite an accepted ADR; supersede it with a new one.
+- **Changed a rule or workflow?** Update this file, plus README, CONTRIBUTING or SECURITY where they describe it.
+- **Changed a component?** Update its stories so Storybook shows every variant, state and prop that exists now; the docs page is generated from the stories and types. New components need a story and a test (`pnpm check:stories`).
+- **New environment variable?** Add it to `src/env.ts` or `src/env.server.ts` and document it in `.env.example`.
+- **Built a screen?** Replace its placeholder, keep the D##/M## comment, and resolve or record any open decision from `_docs/design/HANDOFF.md`.
+
+`pnpm check:docs` (and the required `docs` check in CI) fails a pull request that changes architecture without touching the docs, or changes a component without its story. If a change truly needs no docs, say why in the PR description with a line such as `Docs: not needed — only renames a local variable` (or `Stories: not needed — …`); reviewers check that reason.
+
+## 10. Before you say a task is done
 
 1. `pnpm validate` passes: format, lint, typecheck, check:tokens, check:comments, check:stories, test (including the Storybook stories) and build.
-2. The screen matches its D## and M## previews at 1440px and 390px.
-3. Every new or changed component has an up-to-date story and test.
-4. The work is on a branch, with a PR into `dev` open as described in section 8.
+2. `pnpm check:docs` passes: the docs and stories describe what you changed (section 9).
+3. The screen matches its D## and M## previews at 1440px and 390px.
+4. Every new or changed component has an up-to-date story and test.
+5. The work is on a branch, with a PR into `dev` open as described in section 8.
 
 ## Token reference
 

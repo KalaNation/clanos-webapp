@@ -16,6 +16,7 @@ Start here:
 - Why a tool was chosen: [adr/0001-stack.md](adr/0001-stack.md)
 - Where state goes: [adr/0002-state-management.md](adr/0002-state-management.md)
 - Branches and releases: [adr/0003-branching.md](adr/0003-branching.md)
+- Documenting your changes (required): [adr/0004-documentation-is-enforced.md](adr/0004-documentation-is-enforced.md)
 
 ## Adding to the docs
 

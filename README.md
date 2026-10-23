@@ -34,6 +34,7 @@ pnpm dev                         # starts on localhost:3000
 | `pnpm check:tokens`            | Fails on raw colours, sizes, fonts or Tailwind arbitrary values.                                                      |
 | `pnpm check:comments`          | Fails on comments over 3 lines and TODOs without an issue number.                                                     |
 | `pnpm check:stories`           | Fails when a component has no story or no test.                                                                       |
+| `pnpm check:docs`              | Fails when architecture changed without docs, or a component without its story (compared with `origin/dev`).          |
 | `pnpm validate`                | Everything above except Playwright, then a production build. Run it before you open a pull request.                   |
 
 ## Folder structure

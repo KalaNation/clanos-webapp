@@ -83,10 +83,11 @@ Test behaviour, not implementation: query by role and label, and click like a us
 
 ## Quality gates
 
-| Gate                                                       | Runs                               |
-| ---------------------------------------------------------- | ---------------------------------- |
-| ESLint, Prettier, token, comment, story checks             | pre-commit (staged files), CI      |
-| Commit message (Conventional Commits)                      | commit-msg                         |
-| Branch name, no pushes to `main`/`dev`, typecheck          | pre-push                           |
-| Everything + tests + build + Playwright                    | CI (`validate`), required to merge |
-| PR title, branch name, CodeQL, dependency review, gitleaks | CI, required to merge              |
+| Gate                                                       | Runs                                      |
+| ---------------------------------------------------------- | ----------------------------------------- |
+| ESLint, Prettier, token, comment, story checks             | pre-commit (staged files), CI             |
+| Commit message (Conventional Commits)                      | commit-msg                                |
+| Branch name, no pushes to `main`/`dev`, typecheck          | pre-push                                  |
+| Everything + tests + build + Playwright                    | CI (`validate`), required to merge        |
+| PR title, branch name, CodeQL, dependency review, gitleaks | CI, required to merge                     |
+| Docs and stories keep up with the change (`check:docs`)    | CI (`docs`), required to merge into `dev` |
