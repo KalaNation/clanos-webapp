@@ -1,0 +1,92 @@
+# Architecture overview
+
+CLANOS is a Next.js App Router app that talks to a **separate backend API**. This repository holds the web app only: no API routes or database.
+
+```text
+Browser ──▶ proxy.ts ──▶ Next.js (Server Components, per-request render) ──▶ HTML
+   │            │
+   │            └─ sign-in redirect, security headers, CSP nonce
+   │
+   └──────── HTTPS + session cookie ──▶ CLANOS API (separate backend)
+```
+
+## Routing
+
+Routes live in `src/app`, grouped by who can see them. Groups don't change URLs.
+
+| Group      | Who                                      | Routes                                                                                      |
+| ---------- | ---------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `(auth)`   | Signed-out visitors                      | `/sign-in`, `/sign-up`, `/sign-up/verify`, `/forgot-password[/sent]`, `/reset-password/...` |
+| `(public)` | Anyone with the link                     | `/invitations/[token]`                                                                      |
+| `(app)`    | Signed-in players; the proxy enforces it | `/dashboard`, `/alerts`, `/me`, `/onboarding/...`, `/clans/...`, `/admin/users`             |
+
+Every route in the [HANDOFF.md](../design/HANDOFF.md) screen inventory has a page. Until a screen is built, its page renders `ScreenPlaceholder` with the D##/M## frames to build it from, and a comment at the top names the screens. `src/lib/routes.ts` lists every route; build links from `ROUTES`, never by hand.
+
+Pages stay thin: they read params and compose components from `src/features/<feature>/components` and `src/components`.
+
+## Rendering
+
+- **Server Components by default.** Add `'use client'` only where a component needs state, effects or browser APIs.
+- **Every page renders per request.** The root layout reads the CSP nonce from the request, which opts out of static rendering; a nonce-based CSP needs a fresh nonce in every response. For the same reason Next's Cache Components / partial prerendering are off.
+- **Errors:** `src/app/error.tsx` catches page errors, `global-error.tsx` catches a failing root layout, and `not-found.tsx` handles 404s. None of them show error details to users.
+
+## Request flow and security
+
+`src/proxy.ts` runs before every page (static assets excluded):
+
+1. Generates a nonce and builds the Content-Security-Policy (`src/lib/security/headers.ts`).
+2. If the path is an app route and there's no session cookie, redirects to `/sign-in?next=<path>`. It only checks that the cookie exists; the API validates it on every call.
+3. Otherwise passes the nonce to the app in the `x-nonce` request header and sets the security headers on the response.
+
+`next.config.ts` sets the same non-CSP headers on every response, static files included. [SECURITY.md](../../SECURITY.md) lists every header and the reasoning behind the CSP.
+
+## Environment
+
+`src/env.ts` (public `NEXT_PUBLIC_*` values) and `src/env.server.ts` (server-only, guarded by `import 'server-only'`) validate the environment with Zod. `src/instrumentation.ts` imports both when a Next server starts, so a missing or malformed variable stops the server before it serves anything. `.env.example` documents every variable.
+
+## UI
+
+- **Design tokens** (`src/styles/tokens.css`, generated) are the only source of visual values. `globals.css` maps them into Tailwind and turns everything else off; see [../design/README.md](../design/README.md).
+- **Primitives** in `src/components/ui` are shadcn/ui components on Base UI, rewritten against the tokens and the D45/M45 variants. Dialogs become bottom sheets below 768px.
+- **Fonts** come from `next/font` (`src/lib/fonts.ts`) and are set on `<html>`, where the token text styles pick them up.
+- **Layout:** mobile-first. Base classes are the M frames (390px), and `md:` (768px) is the D frames (1440px). The app shell (sidebar, app bar, tab bar, drawer) isn't built yet; it will wrap the `(app)` layout.
+
+## Features
+
+New product code goes in `src/features/<feature>/`:
+
+```text
+features/clans/
+  api/          API calls and query hooks
+  components/   the feature's UI, each with a story and a test
+  schemas/      Zod schemas for forms and API responses
+  store.ts      Zustand store, only if the feature needs one
+  index.ts      the feature's public API; other code imports only from here
+```
+
+ESLint stops one feature from importing another feature's internals, and stops anything but `src/lib/api/` from importing axios.
+
+## State
+
+[ADR 0002](../adr/0002-state-management.md) sets where state lives: server data in TanStack Query, shareable view state in the URL, shared UI state in Zustand (`src/components/layout/drawer-store.ts` is the example), and everything else local. The API client (axios), TanStack Query and MSW mocks get added with the first feature that calls the API.
+
+## Testing
+
+| Layer      | Tool                                                                             | Where                                 |
+| ---------- | -------------------------------------------------------------------------------- | ------------------------------------- |
+| Unit       | Vitest + React Testing Library (jsdom)                                           | `*.test.ts(x)` next to the code       |
+| Components | Storybook stories run as Vitest browser tests in Chromium, each checked with axe | `*.stories.tsx` next to the component |
+| Scripts    | Vitest (Node)                                                                    | `scripts/*.test.ts`                   |
+| End to end | Playwright at 1440px and 390px against a production build                        | `e2e/`                                |
+
+Test behaviour, not implementation: query by role and label, and click like a user would.
+
+## Quality gates
+
+| Gate                                                       | Runs                               |
+| ---------------------------------------------------------- | ---------------------------------- |
+| ESLint, Prettier, token, comment, story checks             | pre-commit (staged files), CI      |
+| Commit message (Conventional Commits)                      | commit-msg                         |
+| Branch name, no pushes to `main`/`dev`, typecheck          | pre-push                           |
+| Everything + tests + build + Playwright                    | CI (`validate`), required to merge |
+| PR title, branch name, CodeQL, dependency review, gitleaks | CI, required to merge              |
