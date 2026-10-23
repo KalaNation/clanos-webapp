@@ -5,7 +5,8 @@ const HSTS_TWO_YEARS = 'max-age=63072000; includeSubDomains; preload';
 
 interface CspOptions {
   nonce: string;
-  apiOrigin: string;
+  /** Origin of the backend API the browser calls; omitted from connect-src when unknown. */
+  apiOrigin?: string;
   isDevelopment: boolean;
 }
 
@@ -26,7 +27,7 @@ export function buildContentSecurityPolicy({ nonce, apiOrigin, isDevelopment }: 
     'style-src': ["'self'", "'unsafe-inline'"],
     'img-src': ["'self'", 'blob:', 'data:'],
     'font-src': ["'self'"],
-    'connect-src': ["'self'", apiOrigin],
+    'connect-src': ["'self'", ...(apiOrigin ? [apiOrigin] : [])],
     'object-src': ["'none'"],
     'base-uri': ["'self'"],
     'form-action': ["'self'"],

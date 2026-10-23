@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # Build-time values for src/env.ts. Real deployments set their own.
+  # Values the proxy reads (see .env.example). Real deployments set their own.
   NEXT_PUBLIC_API_URL: http://localhost:4000
   SESSION_COOKIE_NAME: clanos_session
   NEXT_TELEMETRY_DISABLED: 1

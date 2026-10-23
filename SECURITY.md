@@ -10,7 +10,7 @@ We'll acknowledge it and keep you updated until it's fixed. Please give us a rea
 
 These are the non-negotiable rules from [AGENTS.md](AGENTS.md#7-security-non-negotiable) section 7.
 
-- **Secrets:** never commit them. Server-only values have no `NEXT_PUBLIC_` prefix and are read only in modules that start with `import 'server-only'` (see `src/env.server.ts`). Only `.env.example` is committed. CI scans every pull request, and every push to `dev` and `main`, with gitleaks.
+- **Secrets:** never commit them. Server-only values have no `NEXT_PUBLIC_` prefix and are read only in server code, in modules that start with `import 'server-only'`. Only `.env.example` is committed. CI scans every pull request, and every push to `dev` and `main`, with gitleaks.
 - **Sessions:** the API sets httpOnly, Secure, SameSite cookies. Never store a token in localStorage, sessionStorage, Zustand or Context.
 - **Validation:** validate every input with Zod on the client **and** on the server. Hiding a button is not authorization; the API is the authority.
 - **Permissions:** every server action and route handler checks the session and the specific permission (for example `members.suspend`) before doing anything.
@@ -33,7 +33,7 @@ These are the non-negotiable rules from [AGENTS.md](AGENTS.md#7-security-non-neg
   - `connect-src` allows only this app and the API origin. `frame-ancestors 'none'`, `object-src 'none'`, `base-uri 'self'` and `form-action 'self'`; `upgrade-insecure-requests` in production.
   - Every page renders per request (the root layout reads the nonce), which a nonce-based CSP requires.
 - **Other headers** on every response, static files included: `Strict-Transport-Security` (production), `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`, and a `Permissions-Policy` that turns off camera, microphone, geolocation, payment, USB and topics. `X-Powered-By` is off.
-- **Environment:** `src/env.ts` and `src/env.server.ts` validate every variable when the server starts; a missing or malformed one stops it.
+- **Environment:** `.env.example` documents every variable. When one is missing the proxy falls back safely: no API origin in `connect-src`, and the default session cookie name.
 - **CI:** CodeQL (security-extended) on the app and the workflows, dependency review, and a gitleaks secret scan. Third-party actions are pinned to commit SHAs, and every workflow has least-privilege permissions.
 
 A Playwright smoke test fails on any console error, which is how a CSP violation shows up, so a change that breaks the policy fails CI.

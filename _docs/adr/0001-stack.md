@@ -15,6 +15,7 @@ CLANOS needs a web app that a team can build on for years: fast for players on m
 - **pnpm 12.** Fast, strict about phantom dependencies, and safe by default: new releases wait 24 hours (`minimumReleaseAge`), and dependency build scripts need approval (`allowBuilds`). Direct dependencies are pinned exactly (`saveExact`), so every upgrade is a reviewable Dependabot pull request.
 - **Next.js 16 (App Router).** Server Components keep JavaScript off the client by default, and file-based routes map one-to-one to the HANDOFF screen inventory. `proxy.ts` gives one place for sign-in redirects and security headers. Cache Components / partial prerendering stay off, because a nonce-based CSP needs every page rendered per request.
 - **React 19.**
+- **Environment variables** are read from `process.env` where they're needed and documented in `.env.example`, with safe defaults. There's deliberately no validation layer, to keep the scaffold small; add one (for example a Zod schema checked at server start) if misconfiguration starts to bite.
 - **TypeScript 6.0**, `strict` with `noUncheckedIndexedAccess`, `noImplicitOverride` and `noFallthroughCasesInSwitch`. **Not 7.0:** TypeScript 7 is the native Go compiler with no stable JavaScript API yet, and typescript-eslint supports TypeScript below 6.1. Dependabot holds TypeScript on 6.0.x until that changes.
 
 ### UI

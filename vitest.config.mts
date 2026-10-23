@@ -6,13 +6,8 @@ import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  resolve: {
-    tsconfigPaths: true,
-    alias: { 'server-only': join(import.meta.dirname, 'src/test/empty-module.ts') },
-  },
+  resolve: { tsconfigPaths: true },
   test: {
-    // Test values for src/env.ts, which validates on import.
-    env: { NEXT_PUBLIC_API_URL: 'http://localhost:4000', SESSION_COOKIE_NAME: 'clanos_session' },
     projects: [
       {
         plugins: [react()],

@@ -1,11 +1,19 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { env } from '@/env';
-import { serverEnv } from '@/env.server';
 import { isAppRoute, ROUTES } from '@/lib/routes';
 import { buildContentSecurityPolicy, NONCE_HEADER, securityHeaders } from '@/lib/security/headers';
 
 const CSP_HEADER = 'Content-Security-Policy';
+const SESSION_COOKIE = process.env.SESSION_COOKIE_NAME ?? 'clanos_session';
+
+/** The API's origin for the CSP, or undefined if NEXT_PUBLIC_API_URL is missing or invalid. */
+function apiOrigin(): string | undefined {
+  try {
+    return new URL(process.env.NEXT_PUBLIC_API_URL ?? '').origin;
+  } catch {
+    return undefined;
+  }
+}
 
 /**
  * Runs before every page. Sends signed-out visitors from app routes to sign-in and sets the
@@ -14,16 +22,12 @@ const CSP_HEADER = 'Content-Security-Policy';
 export function proxy(request: NextRequest) {
   const isDevelopment = process.env.NODE_ENV === 'development';
   const nonce = btoa(crypto.randomUUID());
-  const csp = buildContentSecurityPolicy({
-    nonce,
-    apiOrigin: new URL(env.NEXT_PUBLIC_API_URL).origin,
-    isDevelopment,
-  });
+  const csp = buildContentSecurityPolicy({ nonce, apiOrigin: apiOrigin(), isDevelopment });
 
   const { pathname, search } = request.nextUrl;
   let response: NextResponse;
   // Only checks that a session cookie exists; the API decides whether it is valid.
-  if (isAppRoute(pathname) && !request.cookies.has(serverEnv.SESSION_COOKIE_NAME)) {
+  if (isAppRoute(pathname) && !request.cookies.has(SESSION_COOKIE)) {
     const signIn = new URL(ROUTES.signIn, request.url);
     signIn.searchParams.set('next', `${pathname}${search}`);
     response = NextResponse.redirect(signIn);

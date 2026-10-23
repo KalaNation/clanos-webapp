@@ -33,6 +33,11 @@ describe('buildContentSecurityPolicy', () => {
     expect(production['connect-src']).toEqual(["'self'", 'https://api.clanos.gg']);
   });
 
+  it('allows only this app when the API URL isn’t set', () => {
+    const csp = directives(buildContentSecurityPolicy({ nonce: 'n', isDevelopment: false }));
+    expect(csp['connect-src']).toEqual(["'self'"]);
+  });
+
   it('adds eval only in development, where React needs it for debug stacks', () => {
     const development = directives(
       buildContentSecurityPolicy({

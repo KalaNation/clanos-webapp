@@ -42,7 +42,7 @@ Pages stay thin: they read params and compose components from `src/features/<fea
 
 ## Environment
 
-`src/env.ts` (public `NEXT_PUBLIC_*` values) and `src/env.server.ts` (server-only, guarded by `import 'server-only'`) validate the environment with Zod. `src/instrumentation.ts` imports both when a Next server starts, so a missing or malformed variable stops the server before it serves anything. `.env.example` documents every variable.
+Variables are read from `process.env` where they're needed and documented in `.env.example`. Today only the proxy reads any: `NEXT_PUBLIC_API_URL` (the API origin allowed in the CSP) and `SESSION_COOKIE_NAME` (default `clanos_session`). `NEXT_PUBLIC_*` values are inlined into the build, so changing one means rebuilding; everything else stays on the server. There's no validation layer, by choice ([ADR 0001](../adr/0001-stack.md)).
 
 ## UI
 

@@ -52,7 +52,6 @@ src/
   features/<feature>/   a feature's api/, components/, schemas/ and store, exported through index.ts
   lib/                  utilities, routes, security helpers, fonts, providers
   styles/tokens.css     the design tokens; generated, never edited by hand
-  env.ts                validated environment variables
   proxy.ts              sign-in redirects and security headers
 ```
 

@@ -72,7 +72,7 @@ Families: `--ff-display` (Space Grotesk), `--ff-sans` (IBM Plex Sans), `--ff-mon
 | Client state | Zustand, one small store per concern | Only for UI state shared by distant components (drawer open, active clan). Local state stays in `useState`. |
 | Context | Providers only | QueryClientProvider, session, toasts. Not for state that changes often. |
 | URL state | Search params | Filters, tabs and pagination (e.g. `?tab=invitations`), so every view can be shared and reloaded. |
-| Environment | Zod schema in `src/env.ts` | The app refuses to start if a variable is missing or wrong. |
+| Environment | `process.env`, documented in `.env.example` | Every variable is listed in `.env.example` with what it's for. Read it where it's needed, with a safe default or explicit handling when it's missing. |
 | Tests | Vitest + React Testing Library + MSW; Playwright for end-to-end | Test behaviour, not implementation. |
 | Component docs | Storybook (`@storybook/nextjs-vite`) with autodocs and the a11y addon | Every component has a story. Stories also run as Vitest browser tests, so an a11y violation fails CI. |
 
@@ -92,7 +92,7 @@ src/
     index.ts            the feature's public API; other code imports only from here
   lib/                  api client, query client, utils, security helpers
   styles/tokens.css     generated; never edit
-  env.ts                validated environment variables
+  proxy.ts              sign-in redirects and security headers
   test/                 test setup, MSW handlers and fixtures
 ```
 
@@ -110,7 +110,7 @@ src/
 
 ## 7. Security (non-negotiable)
 
-- **Secrets:** never commit them. Server-only values have no `NEXT_PUBLIC_` prefix and are read only in modules that start with `import 'server-only'`. Only `.env.example` is committed.
+- **Secrets:** never commit them. Server-only values have no `NEXT_PUBLIC_` prefix and are read only in server code; a module that reads one starts with `import 'server-only'` (add the package the first time), so importing it from the client fails the build. Only `.env.example` is committed.
 - **Sessions:** auth uses httpOnly, Secure, SameSite cookies set by the API. Never store tokens in localStorage, sessionStorage, Zustand or Context.
 - **Validation:** validate every input with Zod on the client **and** on the server (route handlers, server actions). Hiding a button is not authorization; the API is the authority.
 - **Permissions:** every server action and route handler checks the session and the specific permission (for example `members.suspend`) before doing anything.
@@ -141,7 +141,7 @@ Undocumented work isn't finished. Update the docs **in the same pull request** a
 - **Made a decision someone could later ask "why?" about** (a new dependency, pattern, library or convention)? Add an ADR in `_docs/adr/`. Never rewrite an accepted ADR; supersede it with a new one.
 - **Changed a rule or workflow?** Update this file, plus README, CONTRIBUTING or SECURITY where they describe it.
 - **Changed a component?** Update its stories so Storybook shows every variant, state and prop that exists now; the docs page is generated from the stories and types. New components need a story and a test (`pnpm check:stories`).
-- **New environment variable?** Add it to `src/env.ts` or `src/env.server.ts` and document it in `.env.example`.
+- **New environment variable?** Document it in `.env.example` (what it's for, public or server-only, an example value) and read it with a safe default.
 - **Built a screen?** Replace its placeholder, keep the D##/M## comment, and resolve or record any open decision from `_docs/design/HANDOFF.md`.
 
 `pnpm check:docs` (and the required `docs` check in CI) fails a pull request that changes architecture without touching the docs, or changes a component without its story. If a change truly needs no docs, say why in the PR description with a line such as `Docs: not needed — only renames a local variable` (or `Stories: not needed — …`); reviewers check that reason.
