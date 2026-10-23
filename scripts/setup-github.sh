@@ -10,7 +10,7 @@ DRY_RUN=false
 
 # Required checks must come from GitHub Actions, so another app can't fake a passing status.
 GITHUB_ACTIONS_APP_ID=15368
-DEV_CHECKS=(validate pr-title branch-name codeql dependency-review gitleaks)
+DEV_CHECKS=(validate pr-title branch-name codeql dependency-review gitleaks docs)
 MAIN_CHECKS=(validate pr-title branch-name codeql dependency-review gitleaks)
 
 status_checks() {

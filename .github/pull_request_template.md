@@ -37,12 +37,19 @@
 <!-- Auth, permissions, input validation, secrets, headers, data shown to users, and any new
      dependency with the reason for it (AGENTS.md section 7). Write "None" if there are none. -->
 
+## Documentation
+
+<!-- The docs check fails if architecture, tooling, security or config changed without a change in
+     _docs/ or AGENTS.md / README / CONTRIBUTING / SECURITY, or if a component changed without its
+     story. List what you updated. If nothing needed documenting, write a line starting with
+     "Docs:" or "Stories:", then "not needed", then the reason (AGENTS.md section 9). -->
+
 ## Checklist
 
 - [ ] Design tokens only: no raw colours, sizes or fonts (`pnpm check:tokens`)
 - [ ] Accessible: keyboard and screen reader work, labels present, 44px targets, status uses a glyph
-- [ ] Every new or changed component has a story and a test (`pnpm check:stories`)
+- [ ] Every new or changed component has an up-to-date story and a test (`pnpm check:stories`)
 - [ ] Tests added or updated, and `pnpm validate` passes
 - [ ] Matches the D## and M## previews at 1440px and 390px
-- [ ] Docs updated where behaviour or conventions changed (AGENTS.md, `_docs/`, README)
+- [ ] Docs updated for every architecture or convention change, with an ADR for a decision (`pnpm check:docs`)
 - [ ] Targets `dev` (or is a release PR from `dev` into `main`)

@@ -1,0 +1,28 @@
+name: Docs
+
+# Architecture changes come with docs, and changed components with updated stories (AGENTS.md
+# section 9). Release PRs into main and Dependabot PRs are skipped, which counts as passing.
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    name: docs
+    if: github.base_ref != 'main' && !startsWith(github.head_ref, 'dependabot/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # The PR description and branch come in through env, never interpolated into the script.
+      - run: node scripts/check-docs.mjs --base "origin/$BASE_REF"
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          PR_BODY: ${{ github.event.pull_request.body }}

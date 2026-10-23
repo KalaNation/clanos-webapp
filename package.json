@@ -30,6 +30,7 @@
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:comments": "node scripts/check-comments.mjs",
     "check:stories": "node scripts/check-stories.mjs",
+    "check:docs": "node scripts/check-docs.mjs --base origin/dev",
     "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm check:tokens && pnpm check:comments && pnpm check:stories && pnpm test && pnpm build",
     "prepare": "husky"
   },
