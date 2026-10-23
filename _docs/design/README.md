@@ -2,12 +2,12 @@
 
 - **Figma:** [CLANOS](https://www.figma.com/design/VaNvrVo01bCgLfUnnF1Fvd/CLANOS)
 - **[HANDOFF.md](HANDOFF.md):** the screen inventory (routes, roles, D##/M## numbers), the tokens, the mobile patterns, the components to build, and the decisions still open.
-- **[previews/](previews/):** a screenshot of every frame. `d##-*.png` is desktop at 1440px; `m##-*.png` is mobile at 390px (saved at 2×). **The same number is the same screen.** D45 and M45 are the Foundations frames: every component and variant.
+- **Frames:** every screen is in the Figma file, on the Desktop and Mobile pages, named like `D26 · Clan dashboard / Clan Master` and `M26 · …`. D frames are 1440px wide and M frames 390px. **The same number is the same screen.** D45 and M45 are the Foundations frames: every component and variant.
 - **[tokens.json](tokens.json):** the tokens in DTCG format, for Tokens Studio and Style Dictionary.
 
 ## Where this comes from
 
-The CLANOS design package (shared separately) is the source of truth. Its `tools/tokens.py` defines every token, and `tools/rebuild.sh` regenerates the HTML frames, these previews, `tokens.json`, `tokens.css`, the Figma plugin and HANDOFF.md from it. This folder holds a copy of the reference material only; don't edit it by hand.
+The CLANOS design package (shared separately) is the source of truth. Its `tools/tokens.py` defines every token, and `tools/rebuild.sh` regenerates the HTML frames and their screenshots, `tokens.json`, `tokens.css`, the Figma plugin and HANDOFF.md from it. This folder holds a copy of the reference material only; don't edit it by hand.
 
 ## How tokens reach the code
 

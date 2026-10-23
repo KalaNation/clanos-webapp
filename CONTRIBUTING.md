@@ -38,7 +38,7 @@ Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `perf`, `test`, `build`, `ci`
 
 - **Keep it to one thing.** A screen, a fix or a refactor, not all three. Small pull requests get reviewed faster and more carefully.
 - **Say why, not only what.** The diff shows what changed; the description explains the problem and the choice you made. Link the issue (`Closes #123`).
-- **Name the screens** (D##/M##) and attach desktop (1440px) and mobile (390px) screenshots next to the matching previews in `_docs/design/previews`.
+- **Name the screens** (D##/M##) and attach desktop (1440px) and mobile (390px) screenshots next to the matching D##/M## frames from [Figma](https://www.figma.com/design/VaNvrVo01bCgLfUnnF1Fvd/CLANOS).
 - **Write test steps a reviewer can follow**: the URL, the role to use, what to click and what should happen.
 - **Fill in the security section**: auth, permissions, validation, data shown to users, and the reason for every new dependency. Write "None" when there's nothing to say.
 - **Reasoning longer than 3 lines** goes in the description or an ADR (`_docs/adr/`), not in a code comment.

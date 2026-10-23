@@ -26,7 +26,7 @@
 
 ## Screenshots
 
-<!-- Desktop at 1440px and mobile at 390px, next to the matching previews in _docs/design/previews. -->
+<!-- Desktop at 1440px and mobile at 390px, next to the matching D##/M## frames from Figma. -->
 
 | Desktop (1440px) | Mobile (390px) |
 | ---------------- | -------------- |
@@ -50,6 +50,6 @@
 - [ ] Accessible: keyboard and screen reader work, labels present, 44px targets, status uses a glyph
 - [ ] Every new or changed component has an up-to-date story and a test (`pnpm check:stories`)
 - [ ] Tests added or updated, and `pnpm validate` passes
-- [ ] Matches the D## and M## previews at 1440px and 390px
+- [ ] Matches the D## and M## frames in Figma at 1440px and 390px
 - [ ] Docs updated for every architecture or convention change, with an ADR for a decision (`pnpm check:docs`)
 - [ ] Targets `dev` (or is a release PR from `dev` into `main`)

@@ -6,7 +6,7 @@ interface ScreenPlaceholderProps {
   screens: string[];
 }
 
-/** Stands in for a screen that isn't built yet and points to its design previews. */
+/** Stands in for a screen that isn't built yet and names the design frames to build it from. */
 export function ScreenPlaceholder({ title, screens }: ScreenPlaceholderProps) {
   return (
     <section aria-labelledby="screen-title" className="flex flex-col gap-section">
@@ -30,8 +30,8 @@ export function ScreenPlaceholder({ title, screens }: ScreenPlaceholderProps) {
         <CardContent>
           <CardTitle level={2}>Start from the design</CardTitle>
           <CardDescription>
-            The previews for these frames are in _docs/design/previews (d## desktop, m## mobile),
-            and HANDOFF.md lists their components, roles and open decisions.
+            Find these frames in the Figma file linked from _docs/design/README.md (D desktop, M
+            mobile); HANDOFF.md lists their components, roles and open decisions.
           </CardDescription>
         </CardContent>
       </Card>

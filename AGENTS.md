@@ -55,7 +55,7 @@ Families: `--ff-display` (Space Grotesk), `--ff-sans` (IBM Plex Sans), `--ff-mon
 ## 4. Match the designs
 
 - `_docs/design/HANDOFF.md` has the screen inventory, routes, roles, component names and open decisions. The Figma file is linked from `_docs/design/README.md`.
-- `_docs/design/previews/` holds the screenshots: `d##-*.png` is desktop (1440px) and `m##-*.png` is mobile (390px). **The same number is the same screen.** Compare your result with both before finishing.
+- The Figma file has every frame, named like `D26 · Clan dashboard / Clan Master` and `M26 · …`: D is desktop (1440px), M is mobile (390px). **The same number is the same screen.** Compare your result with both before finishing.
 - Status always pairs a glyph with a colour (● ◐ ▲ ○ ✓ ✕ ⏳ ⊘), never colour alone.
 - Use the component names from HANDOFF.md (ClanHeader, MemberTable / MemberCard, InvitationTable, InviteDialog, RecruitmentQueue, RoleEditor, AnnouncementComposer, …).
 
@@ -79,7 +79,7 @@ Families: `--ff-display` (Space Grotesk), `--ff-sans` (IBM Plex Sans), `--ff-mon
 **Every component ships with a story and a test.** Each `.tsx` file in `src/components/**` and `src/features/*/components/**` has a sibling `<name>.stories.tsx` (one story per variant and state) and `<name>.test.tsx` (its behaviour). `pnpm check:stories` enforces this.
 
 ```text
-_docs/                  architecture, ADRs, design reference (HANDOFF, tokens.json, previews), guides
+_docs/                  architecture, ADRs, design reference (HANDOFF, tokens.json, Figma link), guides
 src/
   app/                  routes only: (public), (auth), (app) route groups; pages stay thin
   components/ui/        shadcn primitives, token-adapted; each with .stories.tsx and .test.tsx
@@ -150,7 +150,7 @@ Undocumented work isn't finished. Update the docs **in the same pull request** a
 
 1. `pnpm validate` passes: format, lint, typecheck, check:tokens, check:comments, check:stories, test (including the Storybook stories) and build.
 2. `pnpm check:docs` passes: the docs and stories describe what you changed (section 9).
-3. The screen matches its D## and M## previews at 1440px and 390px.
+3. The screen matches its D## and M## frames in Figma at 1440px and 390px.
 4. Every new or changed component has an up-to-date story and test.
 5. The work is on a branch, with a PR into `dev` open as described in section 8.
 

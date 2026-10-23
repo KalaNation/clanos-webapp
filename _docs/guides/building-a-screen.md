@@ -5,7 +5,7 @@ Every screen already has a route with a placeholder. This guide takes one from p
 ## 1. Read the design
 
 - Find the screen in [HANDOFF.md](../design/HANDOFF.md): its route, role, D##/M## numbers and any open decisions.
-- Open both previews: `_docs/design/previews/d18-clan-directory.png` (desktop, 1440px) and `m18-clan-directory.png` (mobile, 390px). The same number is the same screen. Related frames (M19, the filters sheet) are listed in the page's comment.
+- Open both frames in [Figma](https://www.figma.com/design/VaNvrVo01bCgLfUnnF1Fvd/CLANOS): `D18 · Clan directory` (desktop, 1440px) and `M18` (mobile, 390px). The same number is the same screen. Related frames (M19, the filters sheet) are listed in the page's comment.
 - Check the component names in HANDOFF.md (ClanHeader, MemberTable / MemberCard, …) and use them.
 
 ## 2. Branch
@@ -52,7 +52,7 @@ export default function ClansPage() {
 ## 5. Check it
 
 ```sh
-pnpm dev            # compare with the previews at 1440px and 390px
+pnpm dev            # compare with the D18/M18 frames at 1440px and 390px
 pnpm storybook      # check every state and the Accessibility panel
 pnpm validate       # what CI runs, minus Playwright
 ```
@@ -66,4 +66,4 @@ git push -u origin feat/clan-directory
 gh pr create --base dev --title "feat(clans): add the clan directory"
 ```
 
-Fill in every section of the template, with desktop and mobile screenshots next to the previews. Then ask a code owner for review.
+Fill in every section of the template, with desktop and mobile screenshots next to the Figma frames. Then ask a code owner for review.

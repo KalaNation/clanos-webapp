@@ -2,12 +2,12 @@
 
 Everything about how the web app is built and why. The rules every change follows are in [AGENTS.md](../AGENTS.md); the day-to-day workflow is in [CONTRIBUTING.md](../CONTRIBUTING.md).
 
-| Folder                         | What's in it                                                                  |
-| ------------------------------ | ----------------------------------------------------------------------------- |
-| [architecture/](architecture/) | How the app fits together: routing, rendering, security, state, testing.      |
-| [adr/](adr/)                   | Architecture decision records: what was decided, when and why.                |
-| [design/](design/)             | The design reference: screen inventory, tokens, D##/M## previews, Figma link. |
-| [guides/](guides/)             | Step-by-step guides for common work.                                          |
+| Folder                         | What's in it                                                                         |
+| ------------------------------ | ------------------------------------------------------------------------------------ |
+| [architecture/](architecture/) | How the app fits together: routing, rendering, security, state, testing.             |
+| [adr/](adr/)                   | Architecture decision records: what was decided, when and why.                       |
+| [design/](design/)             | The design reference: screen inventory, tokens, and the Figma link (D##/M## frames). |
+| [guides/](guides/)             | Step-by-step guides for common work.                                                 |
 
 Start here:
 
@@ -23,6 +23,6 @@ Start here:
 - Explaining how something works today → `architecture/`.
 - Recording a decision and its reasons → a new ADR in `adr/` (see [adr/README.md](adr/README.md)).
 - Walking someone through a task → `guides/`.
-- Design material → `design/`. The full design package, and the generator for the tokens and previews, live outside this repository.
+- Design material → `design/`. The full design package, and the generator for the tokens, live outside this repository.
 
 Keep pages short and current: when a change makes a page wrong, fix the page in the same pull request.
