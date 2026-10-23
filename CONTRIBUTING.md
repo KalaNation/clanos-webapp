@@ -17,7 +17,7 @@ feat/clan-directory ──PR (squash)──▶ dev ──release PR (merge commi
 3. **Push** your branch. The pre-push hook rejects pushes to `main` or `dev` and badly named branches, then typechecks.
 4. **Open a pull request into `dev`**: `gh pr create --base dev`. Fill in every section of the template.
 5. **CI runs**: `validate` (format, lint, typecheck, the token, comment and story checks, unit and Storybook tests, build and Playwright), `pr-title`, `branch-name`, `docs`, `codeql`, `dependency-review` and `gitleaks`. All of them must pass.
-6. **Review**: one approval from a code owner (see `.github/CODEOWNERS`), with every conversation resolved. A new push dismisses earlier approvals. You can't approve or merge your own pull request.
+6. **Review**: one approval from a code owner (see `.github/CODEOWNERS`), with every conversation resolved. A new push dismisses earlier approvals. You can't approve or merge your own pull request. While the team has a single reviewer, repository admins can merge without an approval; GitHub logs every bypass ([ADR 0005](_docs/adr/0005-admin-bypass.md)).
 7. **Squash-merge.** The PR title becomes the single commit on `dev`, and GitHub deletes the branch.
 
 **Releases** are pull requests from `dev` into `main`, merged with a merge commit so the two branches never diverge. Nobody, admins included, can push to `dev` or `main` directly; the repository rulesets enforce this. `scripts/setup-github.sh` describes them and can re-apply them.

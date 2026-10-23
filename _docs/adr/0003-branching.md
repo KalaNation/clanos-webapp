@@ -1,6 +1,6 @@
 # 0003 · Branching: dev and main
 
-- **Status:** Accepted
+- **Status:** Accepted; the no-bypass rule is amended by [0005](0005-admin-bypass.md)
 - **Date:** 2026-10-23
 
 ## Context

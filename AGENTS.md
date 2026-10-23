@@ -131,7 +131,7 @@ src/
 - **Pull requests:** open them with `gh pr create`.
   - The title is a Conventional Commit; it becomes the squash-merge commit.
   - The body fills in every section of `.github/pull_request_template.md`: what and why, type, screens (D##/M##), how to test, desktop and mobile screenshots, security notes, checklist.
-- Keep PRs small and about one thing. Never use `--no-verify`, never force-push a shared branch, never merge your own PR.
+- Keep PRs small and about one thing. Never use `--no-verify`, never force-push a shared branch, never merge your own PR. Coding agents never use the admin bypass (ADR 0005); it's for people, when no reviewer is available.
 
 ## 9. Documentation is part of the change
 

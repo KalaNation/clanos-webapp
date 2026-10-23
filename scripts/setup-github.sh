@@ -10,6 +10,9 @@ DRY_RUN=false
 
 # Required checks must come from GitHub Actions, so another app can't fake a passing status.
 GITHUB_ACTIONS_APP_ID=15368
+# Repository admins may merge a pull request without its approval or checks (ADR 0005).
+# Direct pushes stay blocked for everyone. Remove once the team has a second reviewer.
+REPOSITORY_ADMIN_ROLE=5
 DEV_CHECKS=(validate pr-title branch-name codeql dependency-review gitleaks docs)
 MAIN_CHECKS=(validate pr-title branch-name codeql dependency-review gitleaks)
 
@@ -35,7 +38,9 @@ ruleset() {
   "name": "$name",
   "target": "branch",
   "enforcement": "active",
-  "bypass_actors": [],
+  "bypass_actors": [
+    { "actor_id": $REPOSITORY_ADMIN_ROLE, "actor_type": "RepositoryRole", "bypass_mode": "pull_request" }
+  ],
   "conditions": { "ref_name": { "include": ["refs/heads/$branch"], "exclude": [] } },
   "rules": [
     { "type": "deletion" },
