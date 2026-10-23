@@ -9,6 +9,7 @@ An ADR records one decision: the situation, what was chosen, and what follows fr
 | [0003 · Branching](0003-branching.md)                                 | `dev` and `main`, squash merges into `dev`, release PRs to `main`                |
 | [0004 · Documentation is enforced](0004-documentation-is-enforced.md) | Docs and stories ship with every change; CI checks it                            |
 | [0005 · Admin bypass](0005-admin-bypass.md)                           | Admins can merge a pull request without a review while the team has one reviewer |
+| [0006 · Manual dependency updates](0006-manual-dependency-updates.md) | Upgrades are deliberate pull requests; no Dependabot version updates             |
 
 ## Writing one
 

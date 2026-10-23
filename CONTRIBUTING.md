@@ -64,4 +64,15 @@ Tokens come from the CLANOS design package (`tools/tokens.py`), never from edits
 
 ## Adding a dependency
 
-Every new dependency needs a reason in the pull request. Prefer well-maintained packages, and don't add one for something a few lines can do. Versions are pinned exactly; Dependabot proposes updates every Monday.
+Every new dependency needs a reason in the pull request. Prefer well-maintained packages, and don't add one for something a few lines can do. Versions are pinned exactly.
+
+## Updating dependencies
+
+Upgrades are done by hand, on purpose ([ADR 0006](_docs/adr/0006-manual-dependency-updates.md)). On a `chore/update-deps` branch:
+
+1. `pnpm outdated` lists what's behind.
+2. Upgrade deliberately, a few related packages at a time: `pnpm update --latest <package>`. Read the changelog of every major version.
+3. Respect the holds: TypeScript stays on 6.0.x until typescript-eslint supports 7, and `@types/node` follows the Node major in `.nvmrc` (24).
+4. Run `pnpm validate` and `pnpm test:e2e`, then open a `build(deps): …` pull request that lists what changed and why.
+
+Dependabot alerts in the repository's Security tab flag known vulnerabilities; fix those first, and the required `dependency-review` check blocks new vulnerable dependencies in pull requests.

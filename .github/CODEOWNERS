@@ -1,3 +1,4 @@
 # Every pull request needs an approval from a code owner (the rulesets in scripts/setup-github.sh).
-# A code owner can't approve their own pull request, so keep at least two people here.
-* @KalaNation @iamBlissMedik
+# Code owners are the @useKalaNation/web team: add or remove people in the organization's team
+# settings, not here. Authors can't approve their own pull requests.
+* @useKalaNation/web

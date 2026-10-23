@@ -40,7 +40,7 @@ pnpm dev                         # starts on localhost:3000
 
 ```text
 _docs/                  architecture, decisions (ADRs), design reference, guides
-.github/                CI workflows, PR template, CODEOWNERS, Dependabot
+.github/                CI workflows, PR template, CODEOWNERS
 .storybook/             Storybook config
 e2e/                    Playwright tests
 scripts/                the check scripts and the GitHub setup script
