@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import Link from 'next/link';
 import { describe, expect, it, vi } from 'vitest';
 
 import { Button, buttonVariants } from './button';
@@ -34,9 +35,9 @@ describe('Button', () => {
 
   it('styles a real link through buttonVariants, so it is still announced as a link', () => {
     render(
-      <a href="/clans/new" className={buttonVariants({ variant: 'secondary' })}>
+      <Link href="/clans/new" className={buttonVariants({ variant: 'secondary' })}>
         Create a clan
-      </a>,
+      </Link>,
     );
 
     const link = screen.getByRole('link', { name: 'Create a clan' });
