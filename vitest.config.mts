@@ -1,4 +1,8 @@
+import { join } from 'node:path';
+
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import react from '@vitejs/plugin-react';
+import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
@@ -19,6 +23,19 @@ export default defineConfig({
           name: 'scripts',
           environment: 'node',
           include: ['scripts/**/*.test.ts'],
+        },
+      },
+      {
+        // Every story renders in Chromium and is checked with axe (see .storybook/preview.tsx).
+        plugins: [storybookTest({ configDir: join(import.meta.dirname, '.storybook') })],
+        test: {
+          name: 'storybook',
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright(),
+            instances: [{ browser: 'chromium' }],
+          },
         },
       },
     ],

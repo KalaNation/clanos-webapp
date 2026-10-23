@@ -7,12 +7,18 @@ import prettier from 'eslint-config-prettier/flat';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import storybook from 'eslint-plugin-storybook';
 import tseslint from 'typescript-eslint';
 
 const AXIOS_IMPORT = {
   name: 'axios',
   message:
     'Use the API client from @/lib/api; only src/lib/api may import axios (AGENTS.md section 5).',
+};
+// shadcn's registry imports cn from the package; ours also merges the CLANOS token classes.
+const CN_IMPORT = {
+  name: 'cn',
+  message: "Import cn from '@/lib/utils', which knows the CLANOS spacing and text-style classes.",
 };
 const FEATURE_INTERNALS = {
   group: ['@/features/*/*'],
@@ -44,7 +50,7 @@ export default defineConfig([
       'no-restricted-imports': [
         'error',
         {
-          paths: [AXIOS_IMPORT],
+          paths: [AXIOS_IMPORT, CN_IMPORT],
           patterns: [{ group: ['axios/*'], message: AXIOS_IMPORT.message }, FEATURE_INTERNALS],
         },
       ],
@@ -52,7 +58,9 @@ export default defineConfig([
   },
   {
     files: ['src/lib/api/**'],
-    rules: { 'no-restricted-imports': ['error', { patterns: [FEATURE_INTERNALS] }] },
+    rules: {
+      'no-restricted-imports': ['error', { paths: [CN_IMPORT], patterns: [FEATURE_INTERNALS] }],
+    },
   },
   // CLI scripts report their results on stdout.
   { files: ['scripts/**'], rules: { 'no-console': 'off' } },
@@ -60,6 +68,7 @@ export default defineConfig([
     plugins: { 'simple-import-sort': simpleImportSort },
     rules: { 'simple-import-sort/imports': 'error', 'simple-import-sort/exports': 'error' },
   },
+  ...storybook.configs['flat/recommended'],
   prettier,
   // Must follow eslint-config-prettier, which turns max-len off; Prettier owns code length.
   {

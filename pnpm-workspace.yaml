@@ -1,4 +1,5 @@
 allowBuilds:
+  esbuild: true
   sharp: false
   unrs-resolver: false
 minimumReleaseAgeExclude:
@@ -19,4 +20,5 @@ peerDependencyRules:
     eslint-plugin-import>eslint: '10'
     eslint-plugin-jsx-a11y>eslint: '10'
     eslint-plugin-react>eslint: '10'
+    tsconfck>typescript: '6'
 saveExact: true
