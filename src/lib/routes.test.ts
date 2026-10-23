@@ -20,7 +20,7 @@ describe('isAppRoute', () => {
     '/invitations/abc',
     '/',
     '/clansfake',
-    '/dev/components',
+    '/reset-password/done',
   ])('leaves %s public', (path) => {
     expect(isAppRoute(path)).toBe(false);
   });

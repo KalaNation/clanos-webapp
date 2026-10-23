@@ -15,8 +15,7 @@ pnpm dev                         # starts on localhost:3000
 ```
 
 - `/` redirects to the dashboard, and signed-out visitors are sent to `/sign-in`. Until sign-in is built, add a cookie named `clanos_session` (any value) in your browser's dev tools to open app routes.
-- `/dev/components` shows every UI component in every variant, laid out like the Foundations frames (D45/M45). It exists only in development.
-- `pnpm storybook` opens the component docs on port 6006.
+- `pnpm storybook` opens the component docs on port 6006: every UI component in every variant, with its props and an accessibility check.
 
 ## Scripts
 
