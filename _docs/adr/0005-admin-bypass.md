@@ -6,7 +6,7 @@
 
 ## Context
 
-`KalaNation` is becoming a GitHub organization. Until a second person joins, its owner (iamBlissMedik) is the only one who can review. GitHub never lets authors approve their own pull requests, and the `dev` and `main` rulesets require one approval with no bypass, so nothing could merge at all.
+The repository now belongs to the `useKalaNation` organization, owned by KalaNation and iamBlissMedik. Until more people join, every pull request needs the other owner account to approve it: GitHub never lets authors approve their own pull requests, and the `dev` and `main` rulesets require one approval with no bypass. That makes every merge wait on one specific account.
 
 ## Decision
 

@@ -4,7 +4,7 @@
 # Usage: scripts/setup-github.sh [--dry-run]     (REPO=owner/name to target another repository)
 set -euo pipefail
 
-REPO="${REPO:-KalaNation/clanos-webapp}"
+REPO="${REPO:-useKalaNation/clanos-webapp}"
 DRY_RUN=false
 [[ "${1:-}" == "--dry-run" ]] && DRY_RUN=true
 

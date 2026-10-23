@@ -33,6 +33,9 @@ updates:
       # typescript-eslint supports TypeScript < 6.1 only; see _docs/adr/0001-stack.md.
       - dependency-name: typescript
         update-types: [version-update:semver-major, version-update:semver-minor]
+      # Node's types follow the Node line in .nvmrc (24 LTS); bump them together.
+      - dependency-name: '@types/node'
+        update-types: [version-update:semver-major]
 
   - package-ecosystem: github-actions
     directory: /
