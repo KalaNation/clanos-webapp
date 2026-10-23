@@ -1,0 +1,5 @@
+# Blocks pushes to main and dev and checks branch names (AGENTS.md section 8), then typechecks.
+while read -r local_ref local_sha remote_ref remote_sha; do
+  node scripts/check-branch-name.mjs --push "$remote_ref" "$local_sha" || exit 1
+done
+pnpm typecheck

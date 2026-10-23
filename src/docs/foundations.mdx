@@ -1,0 +1,84 @@
+import { ColorItem, ColorPalette, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundations" />
+
+# CLANOS foundations
+
+Every colour, font, size, space and radius comes from `src/styles/tokens.css`, which the CLANOS
+design package generates. Use the Tailwind utilities mapped from the tokens (`bg-s1`, `text-mut`,
+`p-sp-16`, `rounded-lg`, `t-body`) or the variables themselves. Tailwind's own palette, type scale,
+radii and numeric spacing are switched off, so a raw value simply doesn't exist.
+
+The rules live in `AGENTS.md`; the design reference (screen inventory, tokens and the Figma
+link) lives in `_docs/design/`.
+
+## Colour
+
+<ColorPalette>
+  <ColorItem
+    title="Brand"
+    subtitle="Primary actions, active nav, links, focus"
+    colors={{
+      brand: 'var(--brand)',
+      'brand-2 · pressed': 'var(--brand-2)',
+      'brand-3 · link hover': 'var(--brand-3)',
+    }}
+  />
+  <ColorItem
+    title="Status"
+    subtitle="Always paired with a glyph: ● ◐ ▲ ○ ✓ ✕ ⏳ ⊘"
+    colors={{ ok: 'var(--ok)', warn: 'var(--warn)', bad: 'var(--bad)', info: 'var(--info)' }}
+  />
+  <ColorItem
+    title="Surfaces"
+    subtitle="Elevation comes from borders, never shadows"
+    colors={{ bg: 'var(--bg)', s1: 'var(--s1)', s2: 'var(--s2)', bd: 'var(--bd)' }}
+  />
+  <ColorItem
+    title="Text"
+    subtitle="Primary, secondary, muted, and text on brand and danger fills"
+    colors={{
+      tx: 'var(--tx)',
+      'tx-2': 'var(--tx-2)',
+      mut: 'var(--mut)',
+      'on-brand': 'var(--on-brand)',
+      'on-bad': 'var(--on-bad)',
+    }}
+  />
+  <ColorItem
+    title="Overlay"
+    subtitle="Scrim behind dialogs and sheets; focus ring"
+    colors={{ scrim: 'var(--scrim)', focus: 'var(--focus)' }}
+  />
+</ColorPalette>
+
+## Text styles
+
+Use a `t-<name>` class instead of setting size, weight or family. Sizes switch below 768px.
+
+<div className="flex flex-col gap-sp-12">
+  <p className="t-display">t-display · Space Grotesk 30 / 26</p>
+  <p className="t-h1">t-h1 · Clan name, onboarding heading</p>
+  <p className="t-h2">t-h2 · Page, dialog and sheet titles</p>
+  <p className="t-h3">t-h3 · Clan and team names in cards</p>
+  <p className="t-stat">t-stat · 1,284</p>
+  <p className="t-body">t-body · Descriptions, rules, messages and list text.</p>
+  <p className="t-body-strong">t-body-strong · Row titles and names</p>
+  <p className="t-ui">t-ui · Buttons, tabs and pills</p>
+  <p className="t-caption text-mut">t-caption · Helper text and notes</p>
+  <p className="t-label text-mut">t-label · Section labels and table headers</p>
+  <p className="t-field-label text-mut">t-field-label · Form field labels</p>
+  <p className="t-data text-mut">t-data · IDs, timestamps, routes</p>
+  <p className="t-data-strong text-brand">t-data-strong · [RVNT]</p>
+  <p className="t-code">t-code · members.suspend</p>
+  <p className="t-micro text-mut">t-micro · Tab bar labels, soon tags</p>
+</div>
+
+## Space, radius and layout
+
+- Space: `sp-4` `sp-6` `sp-8` `sp-10` `sp-12` `sp-16` `sp-20` `sp-24` `sp-28` `sp-32`, e.g. `gap-sp-12`.
+- Layout (switches at 768px): `gutter`, `section`, `list`, `card`, `control`, `control-sm`, `touch`,
+  `top-bar`, `side-panel`, `bottom-bar`, e.g. `px-gutter`, `h-control`, `w-side-panel`.
+- Radius: `rounded-xs` (badges), `-sm` (small buttons, chips), `-md` (buttons, inputs), `-lg`
+  (cards), `-xl` (dialogs, sheets), `-full` (pills, avatars, toggles).
+- A value that isn't a token? Use the closest token and add `TODO(token): <what's missing>`.
