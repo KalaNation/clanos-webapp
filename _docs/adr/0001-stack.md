@@ -1,6 +1,6 @@
 # 0001 · Stack
 
-- **Status:** Accepted
+- **Status:** Accepted; dependency updates amended by [0006](0006-manual-dependency-updates.md)
 - **Date:** 2026-10-23
 
 ## Context
