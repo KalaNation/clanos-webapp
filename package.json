@@ -30,7 +30,8 @@
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:comments": "node scripts/check-comments.mjs",
     "check:stories": "node scripts/check-stories.mjs",
-    "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm check:tokens && pnpm check:comments && pnpm check:stories && pnpm test && pnpm build"
+    "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm check:tokens && pnpm check:comments && pnpm check:stories && pnpm test && pnpm build",
+    "prepare": "husky"
   },
   "dependencies": {
     "@base-ui/react": "1.9.0",
@@ -50,6 +51,8 @@
     "zustand": "5.0.16"
   },
   "devDependencies": {
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
     "@eslint-community/eslint-plugin-eslint-comments": "4.8.1",
     "@playwright/test": "1.64.1",
     "@storybook/addon-a11y": "10.6.3",
@@ -75,7 +78,9 @@
     "eslint-plugin-react-hooks": "7.1.1",
     "eslint-plugin-simple-import-sort": "14.0.0",
     "eslint-plugin-storybook": "10.6.3",
+    "husky": "9.1.7",
     "jsdom": "30.1.3",
+    "lint-staged": "17.6.0",
     "playwright": "1.64.1",
     "prettier": "3.9.10",
     "prettier-plugin-tailwindcss": "0.8.1",
